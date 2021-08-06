@@ -1,6 +1,6 @@
 # single-nerdlet-example
 
-This repo and the [multiple-nerdlets-example](https://github.com/JuliaNocera/mulitple-nerdlets-example) repo are meant to show a working example of how you can use multiple nerdlets in the same "view", even across repos, in New Relic One. 
+This repo and the [multiple-nerdlets-example](https://github.com/JuliaNocera/mulitple-nerdlets-example) repo should be run together. Together they show a working example of how you can use multiple nerdlets in the same "view", even across repos, in New Relic One. 
 
 ## Getting started
 
