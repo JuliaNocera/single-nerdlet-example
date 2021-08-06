@@ -1,9 +1,29 @@
 import React from 'react';
+import {BlockText, HeadingText, Layout, LayoutItem, Spacing} from 'nr1'
 
-// https://docs.newrelic.com/docs/new-relic-programmable-platform-introduction
+import NavBar from '../../src/NavBar'
 
 export default class HomeNerdlet extends React.Component {
   render() {
-    return <h1>Hello, home Nerdlet!</h1>;
+    return (
+      <>
+        <Layout>
+          <LayoutItem>
+            <NavBar />
+          </LayoutItem>
+        </Layout>
+        <Layout fullHeight>
+          <LayoutItem>
+            <HeadingText style={{textAlign: 'center'}}>This is nerdlet "FOUR" </HeadingText>
+            <Spacing type={[Spacing.TYPE.MEDIUM]}>
+              <BlockText style={{textAlign: 'center'}}>
+                This nerdlet is in a different repo then the three other ones associated with the "one", "two" and "three" buttons
+            </BlockText>
+            </Spacing>
+          </LayoutItem>
+        </Layout>
+      </>
+    )
   }
 }
+
