@@ -1,6 +1,7 @@
 import React from 'react';
 import {BlockText, HeadingText, Layout, LayoutItem, Link, Spacing} from 'nr1'
 
+import Header from '../../src/Header'
 import NavBar from '../../src/NavBar'
 
 export default class HomeNerdlet extends React.Component {
@@ -9,6 +10,7 @@ export default class HomeNerdlet extends React.Component {
       <>
         <Layout>
           <LayoutItem>
+            <Header />
             <NavBar />
           </LayoutItem>
         </Layout>
