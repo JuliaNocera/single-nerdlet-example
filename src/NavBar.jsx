@@ -6,7 +6,10 @@ const SINGLE_NERDLET_EXAMPLE_NERDPACK_ID = '4e3c0781-244b-4430-9a09-8522fca863a0
 
 export default class NavBar extends React.Component {
   isCurrentView = (nerdletState, value) => {
-    if (!nerdletState && value === 'ONE') {
+    if (
+      (!nerdletState || !nerdletState.currentView)
+      && value === 'ONE'
+    ) {
       return true
     }
 
