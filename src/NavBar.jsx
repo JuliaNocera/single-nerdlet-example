@@ -16,7 +16,7 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <NerdletStateContext.Consumer>
-        {(nerdletState) => console.log(nerdletState) || (
+        {(nerdletState) => (
           <Card>
             <CardBody>
               <Grid
