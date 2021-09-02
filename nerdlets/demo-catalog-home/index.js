@@ -1,9 +1,25 @@
 import React from 'react';
 
-import { BlockText, HeadingText, Layout, LayoutItem, navigation, NerdGraphQuery, ngql, Spinner, Tile, TileGroup } from 'nr1'
+import {
+  BlockText,
+  HeadingText,
+  Layout,
+  LayoutItem,
+  navigation,
+  NerdGraphQuery,
+  ngql,
+  Spinner,
+  Tile,
+  TileGroup,
+} from "nr1";
 
-// https://docs.newrelic.com/docs/new-relic-programmable-platform-introduction
+/* 
+You can explore what else is available on the `nr1Catalog > nerdpacks > metadata` 
+field to add more information to your tiles if you want. 
 
+NerdGraph GraphiQL API explorer with below query as starter:
+https://api.newrelic.com/graphiql?#query=%7B%0A%20%20actor%20%7B%0A%20%20%20%20nr1Catalog%20%7B%0A%20%20%20%20%20%20nerdpacks%20%7B%0A%20%20%20%20%20%20%20%20id%0A%20%20%20%20%20%20%20%20metadata%20%7B%0A%20%20%20%20%20%20%20%20%20%20tagline%0A%20%20%20%20%20%20%20%20%20%20displayName%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20visibility%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A
+*/
 const CATALOG_QUERY = ngql`
 {
   actor {
@@ -11,8 +27,8 @@ const CATALOG_QUERY = ngql`
       nerdpacks {
         id
         metadata {
-          displayName
           tagline
+          displayName
         }
         visibility
       }
@@ -21,6 +37,18 @@ const CATALOG_QUERY = ngql`
 }
 `
 
+
+/*
+Nerdpacks that are globally available (Public) have a `visibility` of `GLOBAL`. 
+Nerdpacks that are published only to your accounts have a `visibility` of `OWNER_AND_ALLOWED`.
+*/
+const COMPANY_CREATED_NERDPACK_VISIBILIY = "OWNER_AND_ALLOWED" 
+
+/*
+  This is a super simple version of the New Relic One catalog. 
+  An immediate improvement I'd make would be to add a search bar
+  at the top and be able to filter down the packs based on the search.
+*/
 export default class DemoCatalogHomeNerdlet extends React.Component {
   render() {
     return (
@@ -41,7 +69,12 @@ export default class DemoCatalogHomeNerdlet extends React.Component {
                 </BlockText>
               );
             }
-            const companyBuiltNerdpacks = data?.actor?.nr1Catalog?.nerdpacks.filter(({visibility}) => visibility === 'OWNER_AND_ALLOWED')
+
+            const companyBuiltNerdpacks =
+              data?.actor?.nr1Catalog?.nerdpacks.filter(
+                ({ visibility }) => visibility === COMPANY_CREATED_NERDPACK_VISIBILIY
+              );
+
             if(companyBuiltNerdpacks.length === 0) {
               return <HeadingText type={HeadingText.TYPE.HEADING_3}>No Nerdpacks found</HeadingText>
             }
@@ -55,8 +88,9 @@ export default class DemoCatalogHomeNerdlet extends React.Component {
                       navigation.openStackedNerdlet({
                         id: "catalog.home",
                         urlState: {
-                          activeView: "details",
-                          packageId: id,
+                          activeView: "details", // This tells the catalog nerdlet which screen to show: "details" or "account-list"
+                          packageId: id,  // This tells the catalog nerdlet which Nerdpack it should show
+                          hideHeader: true // This hides the breaadcrumb in the catalog nerdlet so users can't click the breadcrumb to go the main catalog.
                         },
                       })
                     }
@@ -71,7 +105,6 @@ export default class DemoCatalogHomeNerdlet extends React.Component {
                 ))}
               </TileGroup>
             );
-            return <div></div>
           }}
         </NerdGraphQuery>
         </LayoutItem>
