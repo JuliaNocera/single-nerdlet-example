@@ -1,0 +1,7 @@
+{
+  "schemaType": "LAUNCHER",
+  "id": "demo-catalog",
+  "displayName": "DemoCatalog",
+  "description": "Describe me",
+  "rootNerdletId": "demo-catalog-home"
+}
